@@ -1,18 +1,6 @@
 import React, { useState } from 'react'
+import { FilterState } from '@/types'
 
-interface FilterState {
-  city: string;
-  checkIn: string;
-  checkOut: string;
-  guests: string;
-  minPrice: string;
-  maxPrice: string;
-  rating: string;
-  availableDates: {
-    startDate: string;
-    endDate: string;
-  };
-}
 interface SearchFormProps {
   filters: any,
   onFiltersChange: (filters: any) => void

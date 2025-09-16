@@ -2,9 +2,10 @@
 import { useState, useEffect } from 'react'
 import React from 'react'
 import sampleHotels from '@/data/hotels'
+import { FilterState } from '@/types'
 
 interface HotelListProps {
-  filters: any
+  filters: FilterState
 }
 
 const HotelList = ({ filters }: HotelListProps) => {
@@ -34,12 +35,7 @@ const HotelList = ({ filters }: HotelListProps) => {
     if (filters.guests) {
       result = result.filter(hotel => hotel.maxGuests >= Number(filters.guests))
     }
-    if (filters.priceRange) {
-      const [minPrice, maxPrice] = filters.priceRange.split('-').map(Number);
-      result = result.filter(hotel => hotel.price >= minPrice && hotel.price <= maxPrice)
-    }
-   
-
+  
     if (filters.checkIn && filters.checkOut) {
       result = result.filter(hotel => {
         const checkIn = new Date(filters.checkIn);

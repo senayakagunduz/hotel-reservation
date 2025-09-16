@@ -16,7 +16,6 @@ interface Hotel {
     endDate: string;   // YYYY-MM-DD format
   }[];
 }
-
 const sampleHotels: Hotel[] = [
   {
     id: 1,
