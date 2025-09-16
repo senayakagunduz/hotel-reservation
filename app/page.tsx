@@ -1,6 +1,7 @@
 "use client"
 import HotelList from "@/components/HotelList";
 import SearchForm from "@/components/SearchForm";
+import { FilterState } from "@/types";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -22,7 +23,7 @@ export default function HomePage() {
     }
   })
 
-  const updateFilters = (newFilters: any) => {
+  const updateFilters = (newFilters: FilterState) => {
     setFilters(newFilters);
     const params = new URLSearchParams();
     Object.entries(filters).forEach(([key, value]) => {

@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { FilterState } from '@/types'
 
 interface SearchFormProps {
-  filters: any,
-  onFiltersChange: (filters: any) => void
+  filters: FilterState,
+  onFiltersChange: (filters: FilterState) => void
 }
 const SearchForm = ({ filters, onFiltersChange }: SearchFormProps) => {
   const [localFilters, setLocalFilters] = useState<FilterState>(filters as FilterState);
