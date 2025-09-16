@@ -3,9 +3,9 @@ import HotelList from "@/components/HotelList";
 import SearchForm from "@/components/SearchForm";
 import { FilterState } from "@/types";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
-export default function HomePage() {
+function SearchParamsWrapper()  {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -53,4 +53,12 @@ export default function HomePage() {
       </div>
     </div>
   );
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={<div>Yükleniyor...</div>}>
+      <SearchParamsWrapper />
+    </Suspense>
+  )
 }

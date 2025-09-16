@@ -7,7 +7,6 @@ interface SearchFormProps {
 }
 const SearchForm = ({ filters, onFiltersChange }: SearchFormProps) => {
   const [localFilters, setLocalFilters] = useState<FilterState>(filters as FilterState);
-  const [priceRange, setPriceRange] = useState<FilterState>(filters as FilterState)
 
   const cities = [
     { value: '', label: 'Sehir Seçiniz' },
