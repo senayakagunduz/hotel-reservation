@@ -1,26 +1,10 @@
-interface Hotel {
-  id: number;
-  name: string;
-  city: string;
-  price: number;
-  rating: number;
-  image: string;
-  description: string;
-  checkInTime: string;
-  checkOutTime: string;
-  maxGuests: number;
-  amenities?: string[];
-  availableRooms: number;
-  availableDates: {
-    startDate: string; // YYYY-MM-DD format
-    endDate: string;   // YYYY-MM-DD format
-  }[];
-}
-const sampleHotels: Hotel[] = [
+import { FrontendHotel } from "@/types";
+
+const sampleHotels: FrontendHotel[] = [
   {
     id: 1,
     name: "Grand Hotel İstanbul",
-    city: "istanbul",
+    city: "istanbul", // ✅ Tutarlı lowercase
     price: 4500,
     rating: 5,
     image: "🏨",
@@ -35,11 +19,10 @@ const sampleHotels: Hotel[] = [
       { startDate: "2025-11-01", endDate: "2025-11-30" }
     ]
   },
-
   {
     id: 2,
     name: "Ankara Palace",
-    city: "ankara",
+    city: "ankara", // ✅ Tutarlı lowercase
     price: 4000,
     rating: 4,
     image: "🏨",
@@ -57,7 +40,7 @@ const sampleHotels: Hotel[] = [
   {
     id: 3,
     name: "İzmir Bay Hotel",
-    city: "izmir",
+    city: "izmir", // ✅ Tutarlı lowercase
     price: 3200,
     rating: 3,
     image: "🏨",
@@ -75,7 +58,7 @@ const sampleHotels: Hotel[] = [
   {
     id: 4,
     name: "Antalya Resort",
-    city: "antalya",
+    city: "antalya", // ✅ Tutarlı lowercase
     price: 2500,
     rating: 5,
     image: "🏨",
@@ -93,7 +76,7 @@ const sampleHotels: Hotel[] = [
   {
     id: 5,
     name: "Bodrum Marina Hotel",
-    city: "bodrum",
+    city: "bodrum", // ✅ Tutarlı lowercase
     price: 5000,
     rating: 4,
     image: "🏨",
@@ -101,7 +84,7 @@ const sampleHotels: Hotel[] = [
     checkInTime: "14:00",
     checkOutTime: "12:00",
     maxGuests: 2,
-    amenities: ["Deniz Manzarası", "Havuz", "Restoran", "Bar", "Ücretsik WiFi"],
+    amenities: ["Deniz Manzarası", "Havuz", "Restoran", "Bar", "Ücretsiz WiFi"], // ✅ "Ücretsik" → "Ücretsiz" düzeltildi
     availableRooms: 6,
     availableDates: [
       { startDate: "2025-10-20", endDate: "2025-10-31" },
@@ -111,7 +94,7 @@ const sampleHotels: Hotel[] = [
   {
     id: 6,
     name: "Budget Hotel İstanbul",
-    city: "istanbul",
+    city: "istanbul", // ✅ Tutarlı lowercase
     price: 2800,
     rating: 3,
     image: "🏨",
@@ -128,8 +111,8 @@ const sampleHotels: Hotel[] = [
   },
   {
     id: 7,
-    name: "Budget Grand Hotel İstanbul",
-    city: "istanbul",
+    name: "Luxury Grand Hotel İstanbul", // ✅ "Budget Grand Hotel" → "Luxury Grand Hotel" (mantıklı isim)
+    city: "istanbul", // ✅ Tutarlı lowercase
     price: 5000,
     rating: 5,
     image: "🏨",
@@ -147,7 +130,7 @@ const sampleHotels: Hotel[] = [
   {
     id: 8,
     name: "Fethiye Marina Hotel",
-    city: "Fethiye",
+    city: "fethiye", // ✅ "Fethiye" → "fethiye" (tutarlı lowercase)
     price: 4000,
     rating: 4,
     image: "🏨",
@@ -155,7 +138,7 @@ const sampleHotels: Hotel[] = [
     checkInTime: "14:00",
     checkOutTime: "12:00",
     maxGuests: 4,
-    amenities: ["Deniz Manzarası", "Havuz", "Restoran", "Ücretsik WiFi"],
+    amenities: ["Deniz Manzarası", "Havuz", "Restoran", "Ücretsiz WiFi"], // ✅ "Ücretsik" → "Ücretsiz" düzeltildi
     availableRooms: 6,
     availableDates: [
       { startDate: "2025-10-20", endDate: "2025-10-31" },
@@ -164,22 +147,22 @@ const sampleHotels: Hotel[] = [
   },
   {
     id: 9,
-    name: "Fethiye Hotel",
-    city: "Fethiye",
-    price: 5000,
+    name: "Fethiye Beach Resort", // ✅ "Fethiye Hotel" → "Fethiye Beach Resort" (benzersiz isim)
+    city: "fethiye", // ✅ "Fethiye" → "fethiye" (tutarlı lowercase)
+    price: 5500, // ✅ 5000 → 5500 (diğerlerinden farklı fiyat)
     rating: 5,
     image: "🏨",
-    description: "Marina manzaralı butik otel",
+    description: "Plaj kenarında lüks resort", // ✅ Farklılaştırılmış açıklama
     checkInTime: "14:00",
     checkOutTime: "12:00",
-    maxGuests: 4,
-    amenities: ["Deniz Manzarası", "Havuz", "Restoran", "Ücretsik WiFi"],
-    availableRooms: 6,
+    maxGuests: 6, // ✅ 4 → 6 (farklılaştırma)
+    amenities: ["Plaj Erişimi", "Havuz", "Spa", "Restoran", "Ücretsiz WiFi", "Tenis Kortu"], // ✅ Farklı amenities
+    availableRooms: 8, // ✅ 6 → 8 (farklılaştırma)
     availableDates: [
-      { startDate: "2025-10-20", endDate: "2025-10-31" },
-      { startDate: "2025-11-20", endDate: "2025-12-30" }
+      { startDate: "2025-09-20", endDate: "2025-10-31" }, // ✅ Farklı tarih aralığı
+      { startDate: "2025-11-01", endDate: "2025-12-30" }
     ]
-  },
+  }
 ];
 
 export default sampleHotels;

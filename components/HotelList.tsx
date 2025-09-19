@@ -2,16 +2,16 @@
 import { useState, useEffect } from 'react'
 import React from 'react'
 import sampleHotels from '@/data/hotels'
-import { FilterState } from '@/types'
+import { FilterState, FrontendHotel } from '@/types'
 
 interface HotelListProps {
   filters: FilterState
 }
 
 const HotelList = ({ filters }: HotelListProps) => {
-  const [filteredHotels, setFilteredHotels] = useState(sampleHotels);
+  const [filteredHotels, setFilteredHotels] = useState<FrontendHotel[]>(sampleHotels as FrontendHotel[]);
   useEffect(() => {
-    let result = [...sampleHotels];
+    let result = [...(sampleHotels as FrontendHotel[])];
 
     if (filters.city) {
       result = result.filter((hotel) =>
@@ -36,18 +36,13 @@ const HotelList = ({ filters }: HotelListProps) => {
       result = result.filter(hotel => hotel.maxGuests >= Number(filters.guests))
     }
   
+    // Tarih seçildiyse, basitçe odası var mı (availableRooms > 0) ve kapasite yeterli mi kontrol edelim
     if (filters.checkIn && filters.checkOut) {
       result = result.filter(hotel => {
-        const checkIn = new Date(filters.checkIn);
-        const checkOut = new Date(filters.checkOut);
-
-        //otelin tüm müsaitlik durumunu kontrol et
-        return hotel.availableDates.some(dateRange => {
-          const avalibaleStart = new Date(dateRange.startDate);
-          const avalibaleEnd = new Date(dateRange.endDate);
-          return checkIn >= avalibaleStart && checkOut <= avalibaleEnd;
-        })
-
+        const guests = Number(filters.guests || '1');
+        const hasRooms = hotel.availableRooms > 0;
+        const canHost = !guests || hotel.maxGuests >= guests;
+        return hasRooms && canHost;
       })
     }
     setFilteredHotels(result);

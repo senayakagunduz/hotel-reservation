@@ -17,10 +17,6 @@ function SearchParamsWrapper()  {
     rating: searchParams.get("rating") || "",
     minPrice: searchParams.get("minPrice") || "",
     maxPrice: searchParams.get("maxPrice") || "",
-    availableDates: {
-      startDate: searchParams.get("checkIn") || "",
-      endDate: searchParams.get("checkOut") || ""
-    }
   })
 
   const updateFilters = (newFilters: FilterState) => {
