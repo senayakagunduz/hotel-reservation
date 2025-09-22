@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { FilterState } from '@/types'
+import { Slider } from './ui/slider';
 
 interface SearchFormProps {
   filters: FilterState,
@@ -17,7 +18,7 @@ const SearchForm = ({ filters, onFiltersChange }: SearchFormProps) => {
     { value: 'bodrum', label: 'Bodrum' },
     { value: 'fethiye', label: 'Fethiye' },
   ]
- 
+
   const ratings = [
     { value: '', label: 'Puan Seçiniz' },
     { value: '1', label: '1' },
@@ -47,6 +48,8 @@ const SearchForm = ({ filters, onFiltersChange }: SearchFormProps) => {
     onFiltersChange(emptyFilters)
     setLocalFilters(emptyFilters)
   }
+  const minVal = parseInt(localFilters.minPrice || '0', 10)
+  const maxVal = parseInt(localFilters.maxPrice || '1000', 10)
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-8">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -117,23 +120,21 @@ const SearchForm = ({ filters, onFiltersChange }: SearchFormProps) => {
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Fiyat Aralığı
           </label>
-          <input
-            type="number"
-            value={localFilters.minPrice || ''}
-            onChange={(e) => handleInputChange('minPrice', e.target.value)}
-            min="0"
-            placeholder="Min"
-            className="w-1/2 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+          <Slider
+            value={[minVal, maxVal]}
+            min={0}
+            max={10000}
+            step={50}
+            onValueChange={([min, max]) => {
+              handleInputChange('minPrice', min.toString())
+              handleInputChange('maxPrice', max.toString())
+            }}
+            className="w-full mt-4"
           />
-          <input
-            type="number"
-            value={localFilters.maxPrice || ''}
-            onChange={(e) => handleInputChange('maxPrice', e.target.value)}
-            min="0"
-            placeholder="Max"
-            className="w-1/2 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
-          />
-          
+          <div className="flex justify-between text-sm text-gray-600 mt-2">
+            <span>Min: {minVal.toLocaleString()} TL</span>
+            <span>Max: {maxVal.toLocaleString()} TL</span>
+          </div>
         </div>
 
         {/* Yıldız Sayısı */}
